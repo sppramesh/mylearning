@@ -1,0 +1,31 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+	<filter>
+		<filter-name>auth-filter</filter-name>
+		<filter-class>com.learning.myapp.common.RestAuthenticationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>auth-filter</filter-name>
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
+	
+	<servlet>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Jersey REST Service</servlet-name>
+		<url-pattern>/api/*</url-pattern>
+	</servlet-mapping>
+
+	<!-- <resource-ref> <description>DB Connection</description> <res-ref-name>jdbc/designds</res-ref-name> 
+		<res-type>javax.sql.DataSource</res-type> <res-auth>Container</res-auth> 
+		</resource-ref> -->
+
+	
+</web-app>

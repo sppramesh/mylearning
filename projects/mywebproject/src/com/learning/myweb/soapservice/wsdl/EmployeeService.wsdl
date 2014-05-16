@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:ns="http://service" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://service">
+    <wsdl:documentation>
+		Please Type your service description here
+	</wsdl:documentation>
+    <wsdl:types>
+        <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://service">
+            <xs:element name="calculateTax">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="baseSalary" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="calculateTaxResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" type="xs:int"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="calculateTaxRequest">
+        <wsdl:part name="parameters" element="ns:calculateTax"/>
+    </wsdl:message>
+    <wsdl:message name="calculateTaxResponse">
+        <wsdl:part name="parameters" element="ns:calculateTaxResponse"/>
+    </wsdl:message>
+    <wsdl:portType name="EmployeeServicePortType">
+        <wsdl:operation name="calculateTax">
+            <wsdl:input message="ns:calculateTaxRequest" wsaw:Action="urn:calculateTax"/>
+            <wsdl:output message="ns:calculateTaxResponse" wsaw:Action="urn:calculateTaxResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="EmployeeServiceSoap11Binding" type="ns:EmployeeServicePortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="calculateTax">
+            <soap:operation soapAction="urn:calculateTax" style="document"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="EmployeeServiceSoap12Binding" type="ns:EmployeeServicePortType">
+        <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="calculateTax">
+            <soap12:operation soapAction="urn:calculateTax" style="document"/>
+            <wsdl:input>
+                <soap12:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap12:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:binding name="EmployeeServiceHttpBinding" type="ns:EmployeeServicePortType">
+        <http:binding verb="POST"/>
+        <wsdl:operation name="calculateTax">
+            <http:operation location="calculateTax"/>
+            <wsdl:input>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:input>
+            <wsdl:output>
+                <mime:content type="application/xml" part="parameters"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="EmployeeService">
+        <wsdl:port name="EmployeeServiceHttpSoap11Endpoint" binding="ns:EmployeeServiceSoap11Binding">
+            <soap:address location="http://localhost:8060/mysoapwebservice/services/EmployeeService.EmployeeServiceHttpSoap11Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="EmployeeServiceHttpSoap12Endpoint" binding="ns:EmployeeServiceSoap12Binding">
+            <soap12:address location="http://localhost:8060/mysoapwebservice/services/EmployeeService.EmployeeServiceHttpSoap12Endpoint/"/>
+        </wsdl:port>
+        <wsdl:port name="EmployeeServiceHttpEndpoint" binding="ns:EmployeeServiceHttpBinding">
+            <http:address location="http://localhost:8060/mysoapwebservice/services/EmployeeService.EmployeeServiceHttpEndpoint/"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,25 @@
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence">
+
+  
+  <persistence-unit name="design" transaction-type="RESOURCE_LOCAL">
+
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+    <non-jta-data-source>java:comp/env/jdbc/designds</non-jta-data-source>
+    <shared-cache-mode>NONE</shared-cache-mode>
+    
+    <properties>
+      <!-- Oracle -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
+      <property name="hibernate.cache.region.factory_class" value="org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory" />
+      <property name="hibernate.cache.use_second_level_cache" value="true" />
+      <property name="hibernate.cache.use_query_cache" value="true" />
+      <property name="hibernate.generate_statistics" value="false" />
+      <property name="hibernate.connection.pool_size" value="30" />
+      <!-- <property name="hibernate.connection.release_mode" value="AUTO" /> -->
+      <property name="hibernate.statement_cache.size" value="0" />
+      <property name="hibernate.show_sql" value="true" />      
+    </properties>
+  </persistence-unit>
+</persistence>
